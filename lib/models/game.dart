@@ -1,7 +1,7 @@
 import 'game_status.dart';
 
 class Game {
-  int id;
+  String uuid;
   DateTime date;
   int? duration;
   String ancient;
@@ -13,7 +13,7 @@ class Game {
   String? description;
 
   Game(
-    this.id, {
+    this.uuid, {
     required this.date,
     this.duration,
     required this.ancient,

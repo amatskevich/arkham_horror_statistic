@@ -10,7 +10,7 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var games = Provider.of<GameProvider>(context, listen: false).games;
+    var games = Provider.of<GameProvider>(context, listen: true).games;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Журнал игр'),
