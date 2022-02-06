@@ -1,5 +1,6 @@
 import 'package:arkham_horror_statistic/models/game.dart';
 import 'package:arkham_horror_statistic/models/game_status.dart';
+import 'package:arkham_horror_statistic/providers/game_data_provider.dart';
 import 'package:arkham_horror_statistic/providers/game_provider.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
   final _form = GlobalKey<FormState>();
   final _descriptionFocusNode = FocusNode();
   final format = DateFormat("yyyy-MM-dd");
-  final uuid = Uuid();
+  final uuid = const Uuid();
 
   var _ancient = '';
   var _date = DateTime.now();
@@ -35,7 +36,8 @@ class _NewGameScreenState extends State<NewGameScreen> {
   void _saveForm() {
     if (_form.currentState!.validate()) {
       _form.currentState?.save();
-      var game = Game(uuid.v4(), date: _date, ancient: _ancient, status: _status);
+      var ancient = Provider.of<GameDataProvider>(context, listen: false).getAncientByName(_ancient);
+      var game = Game(uuid.v4(), date: _date, ancient: ancient, status: _status);
       Provider.of<GameProvider>(context, listen: false).addGame(game);
       Navigator.pop(context);
     }
@@ -45,7 +47,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const FittedBox(child: const Text('Добавление партии')),
+        title: const FittedBox(child: Text('Добавление партии')),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
@@ -127,14 +129,14 @@ class _NewGameScreenState extends State<NewGameScreen> {
                     ),
                     child: const Text(
                       'Отмена',
-                      style: const TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                   ElevatedButton(
                     onPressed: _saveForm,
                     child: const Text(
                       'Сохранить',
-                      style: const TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20),
                     ),
                     style: ButtonStyle(
                       backgroundColor:

@@ -31,7 +31,7 @@ class GameRow extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    game.ancient,
+                    game.ancient.name,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 25),
                   ),
