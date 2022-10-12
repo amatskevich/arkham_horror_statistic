@@ -3,6 +3,7 @@ import 'package:arkham_horror_statistic/models/game_status.dart';
 import 'package:arkham_horror_statistic/providers/game_data_provider.dart';
 import 'package:arkham_horror_statistic/providers/game_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
@@ -35,22 +36,19 @@ class _NewGameScreenState extends State<NewGameScreen> {
       _formKey.currentState?.save();
 
       final formData = _formKey.currentState!.value;
-      var ancient = Provider.of<GameDataProvider>(
-        context,
-        listen: false,
-      ).getAncientByName(formData['ancient']);
       var game = Game(
         uuid.v4(),
         date: formData['game_date'],
-        ancient: ancient,
+        ancient: formData['ancient'],
         heralds: formData['heralds'],
         investigators: formData['investigators'],
         status: formData['status'],
         scoring: formData['score'],
         description: formData['description'],
         extensions: formData['extensions'],
+        duration: int.tryParse(formData['duration']),
       );
-      debugPrint(game.toString()); // TODO
+      debugPrint(game.toString());
       Provider.of<GameProvider>(context, listen: false).addGame(game);
       Navigator.pop(context);
     }
@@ -119,7 +117,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
                   hint: const Text('Выберите древнего'),
                   items: ancients
                       .map((an) => DropdownMenuItem(
-                            value: an.name,
+                            value: an,
                             child: Text(an.name),
                           ))
                       .toList(),
@@ -183,6 +181,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
                   ),
                   keyboardType: TextInputType.number,
                   validator: FormBuilderValidators.numeric(),
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               Padding(

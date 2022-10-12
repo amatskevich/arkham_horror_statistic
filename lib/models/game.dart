@@ -11,7 +11,6 @@ class Game {
   List<Herald> heralds;
   List<Investigator> investigators;
   GameStatus status;
-  bool? win;
   String? scoring;
   String? description;
 
@@ -27,4 +26,9 @@ class Game {
     this.scoring,
     this.description,
   });
+
+  @override
+  String toString() {
+    return 'Game{uuid: $uuid, date: $date, duration: $duration, ancient: $ancient, extensions: $extensions, heralds: $heralds, investigators: $investigators, status: $status, scoring: $scoring, description: $description}';
+  }
 }

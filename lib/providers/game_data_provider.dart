@@ -124,6 +124,11 @@ class Investigator {
   int extensionId;
 
   Investigator(this.name, this.extensionId);
+
+  @override
+  String toString() {
+    return 'Investigator{name: $name, extensionId: $extensionId}';
+  }
 }
 
 class Herald {
@@ -131,6 +136,11 @@ class Herald {
   int extensionId;
 
   Herald(this.name, this.extensionId);
+
+  @override
+  String toString() {
+    return 'Herald{name: $name, extensionId: $extensionId}';
+  }
 }
 
 class Ancient {
@@ -138,6 +148,11 @@ class Ancient {
   int extensionId;
 
   Ancient(this.name, this.extensionId);
+
+  @override
+  String toString() {
+    return 'Ancient{name: $name, extensionId: $extensionId}';
+  }
 }
 
 class Extension {
@@ -145,4 +160,9 @@ class Extension {
   String name;
 
   Extension(this.id, this.name);
+
+  @override
+  String toString() {
+    return 'Extension{id: $id, name: $name}';
+  }
 }
