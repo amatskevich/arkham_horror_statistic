@@ -11,6 +11,7 @@ class Game {
   List<Herald> heralds;
   List<Investigator> investigators;
   GameStatus status;
+  bool? win;
   String? scoring;
   String? description;
 
