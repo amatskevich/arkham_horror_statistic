@@ -33,18 +33,16 @@ class _NewGameScreenState extends State<NewGameScreen> {
       _formKey.currentState?.save();
 
       final formData = _formKey.currentState!.value;
-      var game = Game(
-        uuid.v4(),
-        date: formData['game_date'],
-        ancient: formData['ancient'],
-        heralds: formData['heralds'],
-        investigators: formData['investigators'],
-        status: formData['status'],
-        scoring: formData['score'],
-        description: formData['description'],
-        extensions: formData['extensions'],
-        duration: int.tryParse(formData['duration']),
-      );
+      var game = Game();
+      game.date = formData['game_date'];
+      game.ancient.targetId = formData['ancient'];
+      game.heralds.addAll(formData['heralds']);
+      game.investigators.addAll(formData['investigators']);
+      game.status = formData['status'];
+      game.scoring = formData['score'];
+      game.description = formData['description'];
+      game.extensions.addAll(formData['extensions']);
+      game.duration = int.tryParse(formData['duration']);
       debugPrint(game.toString());
       Provider.of<GameProvider>(context, listen: false).addGame(game);
       Navigator.pop(context);

@@ -17,7 +17,7 @@ class _AncientInputState extends State<AncientInput> {
     var ancients = Provider.of<GameDataProvider>(
       context,
       listen: false,
-    ).ancients;
+    ).getAncients();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: FormBuilderDropdown(
@@ -30,7 +30,7 @@ class _AncientInputState extends State<AncientInput> {
         items: ancients
             .map(
               (an) => DropdownMenuItem(
-                value: an,
+                value: an.id,
                 child: Text(an.name),
               ),
             )

@@ -15,7 +15,7 @@ class _HeraldInputState extends State<HeraldInput> {
   @override
   Widget build(BuildContext context) {
     var heralds = Provider.of<GameDataProvider>(context, listen: false)
-        .heralds
+        .getHeralds()
         .map(
           (e) => FormBuilderFieldOption(
             value: e,

@@ -15,7 +15,7 @@ class _InvestigatorInputState extends State<InvestigatorInput> {
   @override
   Widget build(BuildContext context) {
     var investigators = Provider.of<GameDataProvider>(context, listen: false)
-        .investigators
+        .getInvestigators()
         .map(
           (e) => FormBuilderFieldOption(
             value: e,

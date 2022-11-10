@@ -24,7 +24,7 @@ class _StatusInputState extends State<StatusInput> {
         items: GameStatus.values
             .map(
               (an) => DropdownMenuItem(
-                value: an,
+                value: an.name,
                 child: Text(an.name),
               ),
             )

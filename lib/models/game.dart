@@ -1,34 +1,24 @@
-import 'package:arkham_horror_statistic/providers/game_data_provider.dart';
+import 'package:objectbox/objectbox.dart';
 
 import 'game_status.dart';
+import 'static_data.dart';
 
+@Entity()
 class Game {
-  String uuid;
-  DateTime date;
+  int id = 0;
+  @Property(type: PropertyType.date)
+  DateTime date = DateTime.now();
   int? duration;
-  Ancient ancient;
-  List<Extension> extensions;
-  List<Herald> heralds;
-  List<Investigator> investigators;
-  GameStatus status;
+  final ancient = ToOne<Ancient>();
+  final extensions = ToMany<Extension>();
+  final heralds = ToMany<Herald>();
+  final investigators = ToMany<Investigator>();
+  String status = GameStatus.inProgress.name;
   String? scoring;
   String? description;
 
-  Game(
-    this.uuid, {
-    required this.date,
-    this.duration,
-    required this.ancient,
-    this.extensions = const [],
-    this.heralds = const [],
-    this.investigators = const [],
-    this.status = GameStatus.inProgress,
-    this.scoring,
-    this.description,
-  });
-
   @override
   String toString() {
-    return 'Game{uuid: $uuid, date: $date, duration: $duration, ancient: $ancient, extensions: $extensions, heralds: $heralds, investigators: $investigators, status: $status, scoring: $scoring, description: $description}';
+    return 'Game{id: $id, date: $date, duration: $duration, ancient: $ancient, extensions: $extensions, heralds: $heralds, investigators: $investigators, status: $status, scoring: $scoring, description: $description}';
   }
 }

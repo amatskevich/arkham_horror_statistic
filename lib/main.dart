@@ -6,8 +6,15 @@ import 'package:provider/provider.dart';
 
 import 'game_screen/new_game_screen.dart';
 import 'history_screen/history_sreen.dart';
+import 'providers/object_box.dart';
 
-void main() {
+late ObjectBox objectbox;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  objectbox = await ObjectBox.create();
+
   runApp(const MyApp());
 }
 
@@ -20,8 +27,8 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: GameProvider()),
-        ChangeNotifierProvider.value(value: GameDataProvider()),
+        ChangeNotifierProvider.value(value: GameProvider(objectbox)),
+        ChangeNotifierProvider.value(value: GameDataProvider(objectbox)),
       ],
       builder: (ctx, _) {
         return MaterialApp(

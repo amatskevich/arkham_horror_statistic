@@ -31,7 +31,8 @@ class GameRow extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    game.ancient.name,
+                    game.ancient.target!.name,
+                    // 'game.ancient',
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 25),
                   ),
@@ -53,7 +54,8 @@ class GameRow extends StatelessWidget {
     );
   }
 
-  Icon _determinateIcon(GameStatus status) {
+  Icon _determinateIcon(String statusName) {
+    var status = GameStatus.values.byName(statusName);
     const size = 30.0;
     switch (status) {
       case GameStatus.win:

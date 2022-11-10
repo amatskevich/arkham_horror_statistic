@@ -15,8 +15,8 @@ class _ExtensionInputState extends State<ExtensionInput> {
   @override
   Widget build(BuildContext context) {
     var extensions = Provider.of<GameDataProvider>(context, listen: false)
-        .extensions
-        .where((element) => element.id != 0)
+        .getExtensions() //todo find all except base
+        .where((element) => element.id != 1)
         .map(
           (e) => FormBuilderFieldOption(
             value: e,
