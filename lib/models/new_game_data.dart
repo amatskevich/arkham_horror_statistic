@@ -28,8 +28,8 @@ class NewGameData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addExtension(Extension newExtension) {
-    extensions.add(newExtension);
+  void addExtensions(List<Extension> newExtensions) {
+    extensions.addAll(newExtensions);
     notifyListeners();
   }
 
@@ -65,6 +65,18 @@ class NewGameData extends ChangeNotifier {
 
   void updateDescription(String newDescription) {
     description = newDescription;
+    notifyListeners();
+  }
+
+  void initNewData() {
+    date = DateTime.now();
+    duration = 0;
+    extensions = [];
+    heralds = [];
+    investigators = [];
+    status = GameStatus.inProgress;
+    scoring = '';
+    description = '';
     notifyListeners();
   }
 }

@@ -50,7 +50,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
       game.status = formData['status'];
       game.scoring = formData['score'];
       game.description = formData['description'];
-      game.extensions.addAll(formData['extensions']);
+      game.extensions.addAll(newDataProvider.extensions);
       game.duration = int.tryParse(formData['duration']);
       debugPrint(game.toString());
       Provider.of<GameProvider>(context, listen: false).addGame(game);

@@ -3,6 +3,7 @@ import 'package:arkham_horror_statistic/providers/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/new_game_data.dart';
 import 'game_row_widget.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -11,6 +12,7 @@ class HistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var games = Provider.of<GameProvider>(context, listen: true).games;
+    final newDataProvider = Provider.of<NewGameData>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Журнал игр'),
@@ -27,7 +29,10 @@ class HistoryScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         elevation: 0,
-        onPressed: () => Navigator.of(context).pushNamed(NewGameScreen.routeName),
+        onPressed: () {
+          newDataProvider.initNewData();
+          Navigator.of(context).pushNamed(NewGameScreen.routeName);
+        },
       ),
     );
   }

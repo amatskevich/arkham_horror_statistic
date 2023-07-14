@@ -18,7 +18,7 @@ class Game {
 
   @override
   String toString() {
-    return 'Game{id: $id, date: $date, duration: $duration, ancient: $ancient, extensions: $extensions, heralds: $heralds, investigators: $userAssignments, status: $status, scoring: $scoring, description: $description}';
+    return 'Game{id: $id, date: $date, duration: $duration, ancient: ${ancient.targetId}, extensions: $extensions, heralds: $heralds, investigators: $userAssignments, status: $status, scoring: $scoring, description: $description}';
   }
 }
 
