@@ -28,6 +28,7 @@ class NewGameScreen extends StatefulWidget {
 class _NewGameScreenState extends State<NewGameScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   final uuid = const Uuid();
+  final dummyUser = User('Dummy');
 
   void _saveForm() {
     if (_formKey.currentState!.validate()) {
@@ -39,7 +40,13 @@ class _NewGameScreenState extends State<NewGameScreen> {
       game.date = formData['game_date'];
       game.ancient.targetId = formData['ancient'];
       game.heralds.addAll(newDataProvider.heralds);
-      // game.userAssignments.addAll(formData['userAssignments']);
+      var assignments = newDataProvider.investigators.map((e) {
+        var assignment = UserAssignment();
+        assignment.user.targetId = 0;
+        assignment.investigator.targetId = e.id;
+        return assignment;
+      }).toList();
+      game.userAssignments.addAll(assignments);
       game.status = formData['status'];
       game.scoring = formData['score'];
       game.description = formData['description'];

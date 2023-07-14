@@ -13,12 +13,16 @@ class ObjectBox {
   late final heraldBox = store.box<Herald>();
   late final investigatorBox = store.box<Investigator>();
   late final dbVersionBox = store.box<DbVersion>();
+  late final dbUserBox = store.box<User>();
 
   ObjectBox._create(this.store) {
     // Add any additional setup code, e.g. build queries.
     var versions = dbVersionBox.getAll();
     if (versions.isEmpty) {
       initData();
+    }
+    if (dbUserBox.contains(0)) {
+      dbUserBox.put(User('DummyUser'));
     }
   }
 

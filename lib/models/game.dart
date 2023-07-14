@@ -45,7 +45,7 @@ class UserAssignment {
 
   @override
   String toString() {
-    return 'UserAssignment{id: $id, user: $user, investigator: $investigator, state: $state}';
+    return 'UserAssignment{id: $id, user: ${user.targetId}, investigator: ${investigator.targetId}, state: $state}';
   }
 }
 

@@ -8,6 +8,7 @@ class NewGameData extends ChangeNotifier {
   late Ancient ancient;
   List<Extension> extensions = [];
   List<Herald> heralds = [];
+  List<Investigator> investigators = [];
   GameStatus status = GameStatus.inProgress;
   String scoring = '';
   String description = '';
@@ -44,6 +45,11 @@ class NewGameData extends ChangeNotifier {
 
   void removeHerald(Herald herald) {
     heralds.remove(herald);
+    notifyListeners();
+  }
+
+  void addInvestigators(List<Investigator> newInvestigators) {
+    investigators.addAll(newInvestigators);
     notifyListeners();
   }
 
