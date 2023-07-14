@@ -21,7 +21,7 @@ class ObjectBox {
     if (versions.isEmpty) {
       initData();
     }
-    if (dbUserBox.contains(0)) {
+    if (dbUserBox.contains(1)) {
       dbUserBox.put(User('DummyUser'));
     }
   }

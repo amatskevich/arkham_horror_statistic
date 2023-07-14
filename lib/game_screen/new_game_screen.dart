@@ -42,7 +42,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
       game.heralds.addAll(newDataProvider.heralds);
       var assignments = newDataProvider.investigators.map((e) {
         var assignment = UserAssignment();
-        assignment.user.targetId = 0;
+        assignment.user.targetId = 1;
         assignment.investigator.targetId = e.id;
         return assignment;
       }).toList();
