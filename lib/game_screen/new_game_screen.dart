@@ -3,7 +3,7 @@ import 'package:arkham_horror_statistic/game_screen/duration_input_widget.dart';
 import 'package:arkham_horror_statistic/game_screen/extension_input_widget.dart';
 import 'package:arkham_horror_statistic/game_screen/game_date_input_widget.dart';
 import 'package:arkham_horror_statistic/game_screen/herald_input_widget.dart';
-import 'package:arkham_horror_statistic/game_screen/investigator_input_widget.dart';
+import 'package:arkham_horror_statistic/game_screen/investigator_widget/investigator_input_widget.dart';
 import 'package:arkham_horror_statistic/game_screen/score_input_widget.dart';
 import 'package:arkham_horror_statistic/models/game.dart';
 import 'package:arkham_horror_statistic/providers/game_provider.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/new_game_data.dart';
 import 'ancient_input_widget.dart';
 import 'status_input_widget.dart';
 
@@ -30,14 +31,15 @@ class _NewGameScreenState extends State<NewGameScreen> {
 
   void _saveForm() {
     if (_formKey.currentState!.validate()) {
+      final newDataProvider = Provider.of<NewGameData>(context, listen: false);
       _formKey.currentState?.save();
 
       final formData = _formKey.currentState!.value;
       var game = Game();
       game.date = formData['game_date'];
       game.ancient.targetId = formData['ancient'];
-      game.heralds.addAll(formData['heralds']);
-      game.investigators.addAll(formData['investigators']);
+      game.heralds.addAll(newDataProvider.heralds);
+      // game.userAssignments.addAll(formData['userAssignments']);
       game.status = formData['status'];
       game.scoring = formData['score'];
       game.description = formData['description'];
@@ -94,13 +96,13 @@ class _NewGameScreenState extends State<NewGameScreen> {
                   ),
                   ElevatedButton(
                     onPressed: _saveForm,
-                    child: const Text(
-                      'Сохранить',
-                      style: TextStyle(fontSize: 20),
-                    ),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
                       foregroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    child: const Text(
+                      'Сохранить',
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 ],

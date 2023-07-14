@@ -1,5 +1,4 @@
 import 'package:arkham_horror_statistic/models/game.dart';
-import 'package:arkham_horror_statistic/models/game_status.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';

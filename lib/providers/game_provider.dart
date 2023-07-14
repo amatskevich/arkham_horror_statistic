@@ -1,6 +1,5 @@
 import 'package:arkham_horror_statistic/main.dart';
 import 'package:arkham_horror_statistic/models/game.dart';
-import 'package:arkham_horror_statistic/models/game_status.dart';
 import 'package:arkham_horror_statistic/providers/object_box.dart';
 import 'package:flutter/material.dart';
 

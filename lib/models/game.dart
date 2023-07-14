@@ -1,6 +1,5 @@
 import 'package:objectbox/objectbox.dart';
 
-import 'game_status.dart';
 import 'static_data.dart';
 
 @Entity()
@@ -12,13 +11,48 @@ class Game {
   final ancient = ToOne<Ancient>();
   final extensions = ToMany<Extension>();
   final heralds = ToMany<Herald>();
-  final investigators = ToMany<Investigator>();
+  final userAssignments = ToMany<UserAssignment>();
   String status = GameStatus.inProgress.name;
   String? scoring;
   String? description;
 
   @override
   String toString() {
-    return 'Game{id: $id, date: $date, duration: $duration, ancient: $ancient, extensions: $extensions, heralds: $heralds, investigators: $investigators, status: $status, scoring: $scoring, description: $description}';
+    return 'Game{id: $id, date: $date, duration: $duration, ancient: $ancient, extensions: $extensions, heralds: $heralds, investigators: $userAssignments, status: $status, scoring: $scoring, description: $description}';
   }
+}
+
+@Entity()
+class User {
+  int id = 0;
+  @Unique()
+  String name;
+
+  User(this.name);
+
+  @override
+  String toString() {
+    return 'User{id: $id, name: $name}';
+  }
+}
+
+@Entity()
+class UserAssignment {
+  int id = 0;
+  final user = ToOne<User>();
+  final investigator = ToOne<Investigator>();
+  String state = UserAssignmentState.alive.name;
+
+  @override
+  String toString() {
+    return 'UserAssignment{id: $id, user: $user, investigator: $investigator, state: $state}';
+  }
+}
+
+enum GameStatus {
+  inProgress, win, dead
+}
+
+enum UserAssignmentState {
+  alive, dead, retired
 }

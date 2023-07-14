@@ -119,9 +119,9 @@ final _entities = <ModelEntity>[
             name: 'heralds',
             targetId: const IdUid(4, 8161795646469413502)),
         ModelRelation(
-            id: const IdUid(3, 3282709574231769951),
-            name: 'investigators',
-            targetId: const IdUid(5, 8550225957078429900))
+            id: const IdUid(4, 9084586818540365403),
+            name: 'userAssignments',
+            targetId: const IdUid(8, 252854490301933876))
       ],
       backlinks: <ModelBacklink>[]),
   ModelEntity(
@@ -192,6 +192,59 @@ final _entities = <ModelEntity>[
             flags: 0)
       ],
       relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(7, 2332136721909125803),
+      name: 'User',
+      lastPropertyId: const IdUid(2, 2962347236955740808),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 7127326412603158080),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 2962347236955740808),
+            name: 'name',
+            type: 9,
+            flags: 2080,
+            indexId: const IdUid(6, 2810604563412836467))
+      ],
+      relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(8, 252854490301933876),
+      name: 'UserAssignment',
+      lastPropertyId: const IdUid(4, 1296683563026920747),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 5913648314087534135),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 373457407440829786),
+            name: 'userId',
+            type: 11,
+            flags: 520,
+            indexId: const IdUid(7, 7532800273080434352),
+            relationTarget: 'User'),
+        ModelProperty(
+            id: const IdUid(3, 2628701741477725180),
+            name: 'investigatorId',
+            type: 11,
+            flags: 520,
+            indexId: const IdUid(8, 4068999203637247089),
+            relationTarget: 'Investigator'),
+        ModelProperty(
+            id: const IdUid(4, 1296683563026920747),
+            name: 'state',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[])
 ];
 
@@ -215,14 +268,14 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(6, 4202786351063379320),
-      lastIndexId: const IdUid(5, 5412572468788863323),
-      lastRelationId: const IdUid(3, 3282709574231769951),
+      lastEntityId: const IdUid(8, 252854490301933876),
+      lastIndexId: const IdUid(8, 4068999203637247089),
+      lastRelationId: const IdUid(4, 9084586818540365403),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
       retiredPropertyUids: const [],
-      retiredRelationUids: const [],
+      retiredRelationUids: const [3282709574231769951],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
       version: 1);
@@ -290,7 +343,7 @@ ModelDefinition getObjectBoxModel() {
         toManyRelations: (Game object) => {
               RelInfo<Game>.toMany(1, object.id): object.extensions,
               RelInfo<Game>.toMany(2, object.id): object.heralds,
-              RelInfo<Game>.toMany(3, object.id): object.investigators
+              RelInfo<Game>.toMany(4, object.id): object.userAssignments
             },
         getId: (Game object) => object.id,
         setId: (Game object, int id) {
@@ -333,12 +386,24 @@ ModelDefinition getObjectBoxModel() {
           object.ancient.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
           object.ancient.attach(store);
-          InternalToManyAccess.setRelInfo(object.extensions, store,
-              RelInfo<Game>.toMany(1, object.id), store.box<Game>());
-          InternalToManyAccess.setRelInfo(object.heralds, store,
-              RelInfo<Game>.toMany(2, object.id), store.box<Game>());
-          InternalToManyAccess.setRelInfo(object.investigators, store,
-              RelInfo<Game>.toMany(3, object.id), store.box<Game>());
+          InternalToManyAccess.setRelInfo(
+            object.extensions,
+            store,
+            RelInfo<Game>.toMany(1, object.id),
+            // store.box<Game>(),
+          );
+          InternalToManyAccess.setRelInfo(
+            object.heralds,
+            store,
+            RelInfo<Game>.toMany(2, object.id),
+            // store.box<Game>(),
+          );
+          InternalToManyAccess.setRelInfo(
+            object.userAssignments,
+            store,
+            RelInfo<Game>.toMany(4, object.id),
+            // store.box<Game>(),
+          );
           return object;
         }),
     Herald: EntityDefinition<Herald>(
@@ -424,6 +489,67 @@ ModelDefinition getObjectBoxModel() {
                 const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
 
           return object;
+        }),
+    User: EntityDefinition<User>(
+        model: _entities[6],
+        toOneRelations: (User object) => [],
+        toManyRelations: (User object) => {},
+        getId: (User object) => object.id,
+        setId: (User object, int id) {
+          object.id = id;
+        },
+        objectToFB: (User object, fb.Builder fbb) {
+          final nameOffset = fbb.writeString(object.name);
+          fbb.startTable(3);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, nameOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = User(const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 6, ''))
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+
+          return object;
+        }),
+    UserAssignment: EntityDefinition<UserAssignment>(
+        model: _entities[7],
+        toOneRelations: (UserAssignment object) =>
+            [object.user, object.investigator],
+        toManyRelations: (UserAssignment object) => {},
+        getId: (UserAssignment object) => object.id,
+        setId: (UserAssignment object, int id) {
+          object.id = id;
+        },
+        objectToFB: (UserAssignment object, fb.Builder fbb) {
+          final stateOffset = fbb.writeString(object.state);
+          fbb.startTable(5);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.user.targetId);
+          fbb.addInt64(2, object.investigator.targetId);
+          fbb.addOffset(3, stateOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = UserAssignment()
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
+            ..state = const fb.StringReader(asciiOptimization: true)
+                .vTableGet(buffer, rootOffset, 10, '');
+          object.user.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0);
+          object.user.attach(store);
+          object.investigator.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
+          object.investigator.attach(store);
+          return object;
         })
   };
 
@@ -487,9 +613,9 @@ class Game_ {
   static final heralds =
       QueryRelationToMany<Game, Herald>(_entities[2].relations[1]);
 
-  /// see [Game.investigators]
-  static final investigators =
-      QueryRelationToMany<Game, Investigator>(_entities[2].relations[2]);
+  /// see [Game.userAssignments]
+  static final userAssignments =
+      QueryRelationToMany<Game, UserAssignment>(_entities[2].relations[2]);
 }
 
 /// [Herald] entity fields to define ObjectBox queries.
@@ -528,4 +654,32 @@ class DbVersion_ {
   /// see [DbVersion.date]
   static final date =
       QueryIntegerProperty<DbVersion>(_entities[5].properties[1]);
+}
+
+/// [User] entity fields to define ObjectBox queries.
+class User_ {
+  /// see [User.id]
+  static final id = QueryIntegerProperty<User>(_entities[6].properties[0]);
+
+  /// see [User.name]
+  static final name = QueryStringProperty<User>(_entities[6].properties[1]);
+}
+
+/// [UserAssignment] entity fields to define ObjectBox queries.
+class UserAssignment_ {
+  /// see [UserAssignment.id]
+  static final id =
+      QueryIntegerProperty<UserAssignment>(_entities[7].properties[0]);
+
+  /// see [UserAssignment.user]
+  static final user =
+      QueryRelationToOne<UserAssignment, User>(_entities[7].properties[1]);
+
+  /// see [UserAssignment.investigator]
+  static final investigator = QueryRelationToOne<UserAssignment, Investigator>(
+      _entities[7].properties[2]);
+
+  /// see [UserAssignment.state]
+  static final state =
+      QueryStringProperty<UserAssignment>(_entities[7].properties[3]);
 }

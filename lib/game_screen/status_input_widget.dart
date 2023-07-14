@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../models/game_status.dart';
+import '../models/game.dart';
+
 
 class StatusInput extends StatefulWidget {
   const StatusInput({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _StatusInputState extends State<StatusInput> {
         decoration: const InputDecoration(
           labelText: 'Статус',
         ),
-        allowClear: false,
+        // allowClear: false,
         items: GameStatus.values
             .map(
               (an) => DropdownMenuItem(

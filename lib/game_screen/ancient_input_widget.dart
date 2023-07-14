@@ -25,8 +25,8 @@ class _AncientInputState extends State<AncientInput> {
         decoration: const InputDecoration(
           labelText: 'Древний',
         ),
-        allowClear: false,
-        hint: const Text('Выберите древнего'),
+        // allowClear: false,
+        disabledHint: const Text('Выберите древнего'),
         items: ancients
             .map(
               (an) => DropdownMenuItem(

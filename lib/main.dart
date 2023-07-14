@@ -1,3 +1,4 @@
+import 'package:arkham_horror_statistic/models/new_game_data.dart';
 import 'package:arkham_horror_statistic/providers/game_data_provider.dart';
 import 'package:arkham_horror_statistic/providers/game_provider.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: GameProvider(objectbox)),
         ChangeNotifierProvider.value(value: GameDataProvider(objectbox)),
+        ChangeNotifierProvider.value(value: NewGameData()),
       ],
       builder: (ctx, _) {
         return MaterialApp(

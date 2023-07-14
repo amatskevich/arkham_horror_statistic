@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/game_data_provider.dart';
+import '../../providers/game_data_provider.dart';
 
 class InvestigatorInput extends StatefulWidget {
   const InvestigatorInput({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _InvestigatorInputState extends State<InvestigatorInput> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: FormBuilderCheckboxGroup(
-        name: 'investigators',
+        name: 'userAssignments',
         decoration: const InputDecoration(
           labelText: 'Сыщики',
         ),
