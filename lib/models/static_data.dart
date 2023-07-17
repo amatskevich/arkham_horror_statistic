@@ -144,6 +144,18 @@ class Ancient {
   String toString() {
     return 'Ancient{name: $name, extensionId: $extensionId}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Ancient &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          extensionId == other.extensionId;
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode ^ extensionId.hashCode;
 }
 
 @Entity()

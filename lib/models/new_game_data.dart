@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class NewGameData extends ChangeNotifier {
   DateTime date = DateTime.now();
   int duration = 0;
-  late Ancient ancient;
+  int ancientId = 0;
   List<Extension> extensions = [];
   List<Herald> heralds = [];
   List<Investigator> investigators = [];
@@ -23,8 +23,8 @@ class NewGameData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateAncient(Ancient newAncient) {
-    ancient = newAncient;
+  void updateAncient(int newAncientId) {
+    ancientId = newAncientId;
     notifyListeners();
   }
 
@@ -71,6 +71,7 @@ class NewGameData extends ChangeNotifier {
   void initNewData() {
     date = DateTime.now();
     duration = 0;
+    ancientId = 0;
     extensions = [];
     heralds = [];
     investigators = [];
