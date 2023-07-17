@@ -47,7 +47,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
         return assignment;
       }).toList();
       game.userAssignments.addAll(assignments);
-      game.status = formData['status'];
+      game.status = newDataProvider.status.name;
       game.scoring = formData['score'];
       game.description = formData['description'];
       game.extensions.addAll(newDataProvider.extensions);

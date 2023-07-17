@@ -83,20 +83,6 @@ class _AncientInputState extends State<AncientInput> {
             iconEnabledColor: Colors.black,
             iconDisabledColor: Colors.grey,
           ),
-          // dropdownStyleData: DropdownStyleData(
-          //   maxHeight: 200,
-          //   width: 200,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(14),
-          //     color: Colors.redAccent,
-          //   ),
-          //   offset: const Offset(-20, 0),
-          //   scrollbarTheme: ScrollbarThemeData(
-          //     radius: const Radius.circular(40),
-          //     thickness: MaterialStateProperty.all(6),
-          //     thumbVisibility: MaterialStateProperty.all(true),
-          //   ),
-          // ),
           menuItemStyleData: const MenuItemStyleData(
             height: 40,
             padding: EdgeInsets.only(left: 14, right: 14),
