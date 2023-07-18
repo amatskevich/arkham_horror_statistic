@@ -37,7 +37,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
 
       final formData = _formKey.currentState!.value;
       var game = Game();
-      game.date = formData['game_date'];
+      game.date = newDataProvider.date;
       game.ancient.targetId = newDataProvider.ancientId;
       game.heralds.addAll(newDataProvider.heralds);
       var assignments = newDataProvider.investigators.map((e) {
